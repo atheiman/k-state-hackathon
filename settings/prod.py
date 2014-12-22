@@ -12,5 +12,3 @@ TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = ['.austinheiman.com']
 
 DATABASES = PROD_DB
-
-STATIC_URL = 'http://mis-club.austinheiman.com:/static/'

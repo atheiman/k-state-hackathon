@@ -15,9 +15,7 @@ context_base = {}
 def index(request):
     context = context_base
 
-    context['meetings'] = Meeting.objects.filter(available_for_sign_in=True)
-
-    return render(request, 'attendance/index.html', context)
+    # return render(request, 'attendance/index.html', context)
 
 
 

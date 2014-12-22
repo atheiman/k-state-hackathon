@@ -10,7 +10,7 @@
 
 
 
-PROJ_NAME=mis-club-site
+PROJ_NAME=k-state-hackathon
 PROJ_DIR=/opt/$PROJ_NAME
 
 GIT_PRODUCTION_BRANCH=production
@@ -55,6 +55,7 @@ pkill nginx
 MESSAGE="INSTALLING OS LEVEL PACKAGES"; pretty_print
 apt-get update
 apt-get install --yes mysql-client libmysqlclient-dev python-dev python-pip nginx
+pip install --upgrade virtualenv
 
 
 
@@ -72,6 +73,7 @@ chmod --recursive --verbose a+rx $PROJ_DIR
 MESSAGE="SETTING UP VIRTUALENV"; pretty_print
 # If a virtualenv does not exist, then create it
 if [ ! -d "$VIRTUALENV" ]; then
+    mkdir --parents $VIRTUALENV
     virtualenv $VIRTUALENV
 fi
 $PIP install --requirement=$REQUIREMENTS_FILE --upgrade --verbose

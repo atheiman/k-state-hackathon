@@ -7,12 +7,12 @@ upstream django {
 server {
     listen 80;
     client_max_body_size 10m;
-    server_name mis-club.austinheiman.com;
+    server_name k-state-hackathon;
 
     keepalive_timeout 5;
 
     # path for static files
-    root /opt/mis-club-site/static_root;
+    root /opt/k-state-hackathon/static_root;
 
     location / {
         # checks for static file, if not found proxy to app

@@ -22,7 +22,7 @@ GUNICORN_CONFIG=$PROJ_DIR/conf/gunicorn_config.wsgi
 GUNICORN_SYSTEM_FILES=/tmp/*gunicorn*
 
 NGINX_CONF_DIR=/etc/nginx
-NGINX_SITE_CONF=$PROJ_DIR/conf/nginx_site_config/dev
+NGINX_SITE_CONF=$PROJ_DIR/conf/nginx_site_conf
 
 
 
@@ -39,7 +39,7 @@ cd $PROJ_DIR
 # Install OS Level Packages
 MESSAGE="INSTALLING OS LEVEL PACKAGES"; pretty_print
 apt-get update
-apt-get install --yes python-dev python-pip nginx
+apt-get install --yes mysql-client libmysqlclient-dev python-dev python-pip nginx
 pip install --upgrade --verbose virtualenv
 
 
@@ -47,7 +47,7 @@ pip install --upgrade --verbose virtualenv
 # Setup a virtualenv
 MESSAGE="SETTING UP VIRTUALENV"; pretty_print
 # If a virtualenv does not exist, then create it
-if [ ! -d "$VIRTUALENV" ]; then
+if [ ! -f "$PIP" ]; then
     mkdir --parents $VIRTUALENV
     virtualenv $VIRTUALENV
 fi

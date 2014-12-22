@@ -1,18 +1,18 @@
 upstream django {
-    server unix:/tmp/gunicorn.sock fail_timeout=0;
+    server unix:/tmp/k-state-hackathon.gunicorn.sock fail_timeout=0;
     # For a TCP configuration:
     # server 192.168.0.7:8000 fail_timeout=0;
 }
 
 server {
-    listen 80;
+    listen 8000;
     client_max_body_size 10m;
-    server_name k-state-hackathon;
+    server_name _;
 
     keepalive_timeout 5;
 
     # path for static files
-    root /opt/k-state-hackathon/static_root;
+    root /vagrant/static_root;
 
     location / {
         # checks for static file, if not found proxy to app

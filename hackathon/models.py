@@ -47,6 +47,7 @@ class Entrant(Person):
     team = models.ForeignKey(
         'Team',
         blank=True,
+        null=True,
     )
 
     def is_upperclass(self):

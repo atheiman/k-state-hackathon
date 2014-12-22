@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.db import models
 from django.contrib.auth.models import User, Group
 
-from .global_vars import SCHOOL_STATUS_CHOICES, MAJOR_CHOICES, VOTE_CATEGORY_CHOICES
+from .global_vars import SCHOOL_STATUS_CHOICES, MAJOR_CHOICES
 
 
 
@@ -26,8 +26,8 @@ class Person(models.Model):
 
 
 
-class Voter(Person):
-    votes = models.ManyToManyField(Group, through="Vote")
+class Judge(Person):
+    votes = models.ManyToManyField('Team', through="Vote")
 
 
 
@@ -58,7 +58,6 @@ class Entrant(Person):
 
 
 class Team(models.Model):
-    team_name = models.CharField(max_length=40)
     project_name = models.CharField(
         max_length=40,
         blank=True,
@@ -73,13 +72,17 @@ class Team(models.Model):
     )
     leader = models.ForeignKey(
         Entrant,
+        related_name="leader_of",
         help_text="The team leader will be the primary contact for the project.",
     )
+
+    def __unicode__(self):
+        return self.project_name
 
 
 
 class Vote(models.Model):
-    user = models.ForeignKey('User')
+    judge = models.ForeignKey('Judge')
     team = models.ForeignKey('Team')
 
     # Scores
@@ -100,3 +103,7 @@ class Vote(models.Model):
             self.creativity_score +
             self.code_review_score
         ) / 3
+
+    def __unicode__(self):
+        return "User: %s; Team: %s; Avg Score: %d" % \
+            (self.user, self.team, self.average_score)

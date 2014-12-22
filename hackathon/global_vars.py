@@ -17,8 +17,8 @@ MAJOR_CHOICES = (
     ('ENGINEERING OTHER', 'Engineering - Other'),
     ('MANAGEMENT INFORMATION SYSTEMS', 'Management Information Systems'),
     ('BUSINESS OTHER', 'Business - Other'),
-    ('GRADUATE ENGINEERING', 'Graduate Student in Engineering')
-    ('GRADUATE BUSINESS', 'Graduate Student in Business')
-    ('GRADUATE OTHER', 'Graduate Student in Business')
+    ('GRADUATE ENGINEERING', 'Graduate Student in Engineering'),
+    ('GRADUATE BUSINESS', 'Graduate Student in Business'),
+    ('GRADUATE OTHER', 'Graduate Student in Business'),
     ('OTHER', 'Other'),
 )

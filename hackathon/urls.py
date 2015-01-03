@@ -1,17 +1,20 @@
 from django.conf.urls import patterns, url
 
-from hackathon import views
+from .views import index, register, team, edit_team, review
 
 urlpatterns = patterns('',
-    # # /
-    # url(r'^\/?$', views.index, name='index'),
+    # /
+    url(r'^\/?$', index, name='index'),
 
-    # # /register/user
-    # url(r'^register/user\/?$', views.register_entrant, name='register_user'),
+    # /register
+    url(r'^register\/?$', register, name='register'),
 
-    # # /register/team
-    # url(r'^register/team\/?$', views.register_team, name='register_team'),
+    # /team/1
+    url(r'^team/(?P<team_id>\d+)\/', team, name='team'),
 
-    # # /vote
-    # url(r'^vote\/?$', views.vote, name='vote'),
+    # /team/1/edit
+    url(r'^team/(?P<team_id>\d+)/edit\/', edit_team, name='edit_team'),
+
+    # /vote
+    url(r'^review\/?$', review, name='review'),
 )

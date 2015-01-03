@@ -1,0 +1,11 @@
+{% extends 'hackathon/layout.html' %}
+
+{% block content %}
+    <div class="jumbotron">
+        <p>
+            Welcome to the first annual <strong>K-State Hackathon</strong>, sponsored by the Office of Mediated Education!
+        </p>
+    </div>
+
+    <p>The K-State Hackathon is set for Feb 17 - Feb 23. <a href="{% url 'hackathon:register' %}">Register here</a></p>
+{% endblock content %}

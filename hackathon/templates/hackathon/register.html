@@ -1,0 +1,9 @@
+{% extends 'hackathon/layout.html' %}
+
+{% block content %}
+    <form action="{% url 'hackathon:register' %}" method="post">
+        {% csrf_token %}
+        {% include 'hackathon/simple_form.html' %}
+        <input type="submit" value="Register"/>
+    </form>
+{% endblock content %}

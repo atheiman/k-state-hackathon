@@ -1,0 +1,78 @@
+{
+    "entrants":[
+        {"first_name":"Heather","last_name":"Ortiz","email":"hortiz0@blogspot.com","password":"4ZCW7D4","username":"hortiz0","major":"MANAGEMENT INFORMATION SYSTEMS","year_in_school":"4"},
+        {"first_name":"Catherine","last_name":"Lawrence","email":"clawrence1@squidoo.com","password":"86HjekV7tR1","username":"clawrence1","major":"MANAGEMENT INFORMATION SYSTEMS","year_in_school":"3"},
+        {"first_name":"Henry","last_name":"Henry","email":"hhenry2@geocities.jp","password":"pODOXuL6O","username":"hhenry2","major":"SOFTWARE ENGINEERING","year_in_school":"2"},
+        {"first_name":"Carl","last_name":"Weaver","email":"cweaver3@mysql.com","password":"miZlASlz","username":"cweaver3","major":"INFORMATION SYSTEMS","year_in_school":"2"},
+        {"first_name":"Jacqueline","last_name":"Roberts","email":"jroberts4@un.org","password":"DWeNXXKCeJ","username":"jroberts4","major":"COMPUTER SCIENCE","year_in_school":"2"},
+        {"first_name":"Karen","last_name":"King","email":"kking5@princeton.edu","password":"e5lig1wa7AJ8","username":"kking5","major":"OTHER","year_in_school":"5"},
+        {"first_name":"Benjamin","last_name":"Clark","email":"bclark6@soundcloud.com","password":"D19h3C","username":"bclark6","major":"OTHER ENGINEERING","year_in_school":"2"},
+        {"first_name":"Barbara","last_name":"Alvarez","email":"balvarez7@admin.ch","password":"JqW4gEr","username":"balvarez7","major":"INFORMATION SYSTEMS","year_in_school":"2"},
+        {"first_name":"Deborah","last_name":"Walker","email":"dwalker8@newyorker.com","password":"T4xU6PxY0lcE","username":"dwalker8","major":"OTHER ENGINEERING","year_in_school":"4"},
+        {"first_name":"Sharon","last_name":"Gray","email":"sgrayf@guardian.co.uk","password":"4taNgOnu","username":"sgrayf","major":"COMPUTER SCIENCE","year_in_school":"2"}
+    ],
+    "judges": [
+        {"first_name":"Paula","last_name":"Kelly","email":"pkelly0@accuweather.com","password":"84Re7IQ","username":"pkelly0"},
+        {"first_name":"Gary","last_name":"Ellis","email":"gellis1@yolasite.com","password":"uONqhZcbS","username":"gellis1"}
+    ],
+    "teams": [
+        {
+            "project_name":"spawncamping-batman",
+            "project_description":"spawncamping-batman is our new tool for creating batmans to spawncamp. This project provides a solid foundation to get your batman well on the way to spawncamping like a champ.",
+            "project_repository":"https://github.com/hortiz0/spawncamping-batman",
+            "members":[
+                "hortiz0",
+                "clawrence1",
+                "hhenry2",
+                "cweaver3",
+                "jroberts4"
+            ]
+        },
+        {
+            "project_name":"furry-nemesis",
+            "project_description":"See project README.",
+            "project_repository":"https://github.com/dwalker8/furry-nemesis",
+            "members":[
+                "kking5",
+                "bclark6",
+                "balvarez7",
+                "dwalker8",
+                "sgrayf"
+            ]
+        }
+    ],
+    "reviews": [
+        {
+            "judge":"pkelly0",
+            "team":"spawncamping-batman",
+            "presentation_score":7,
+            "creativity_score":6,
+            "code_review_score":4,
+            "notes":"I like the project idea, but unfortunately your code base is very unorganized and difficult to interpret."
+        },
+        {
+            "judge":"pkelly0",
+            "team":"furry-nemesis",
+            "presentation_score":9,
+            "creativity_score":5,
+            "code_review_score":5,
+            "notes":"Very well done presentation, your team had the audience genuinely excited."
+        },
+        {
+            "judge":"gellis1",
+            "team":"spawncamping-batman",
+            "presentation_score":6,
+            "creativity_score":6,
+            "code_review_score":6,
+            "notes":"All around a good but not great project. I was hoping to be more impressed."
+        },
+        {
+            "judge":"gellis1",
+            "team":"furry-nemesis",
+            "presentation_score":8,
+            "creativity_score":6,
+            "code_review_score":7,
+            "notes":"I think this is a great project, your code is organized and clean and your presentation was run very well."
+        }
+    ]
+}

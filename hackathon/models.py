@@ -2,9 +2,11 @@ from decimal import *
 
 from django.contrib import admin
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
+from django.db.models.signals import m2m_changed
+from django.core.exceptions import ValidationError
 
-from .global_vars import SCHOOL_STATUS_CHOICES, MAJOR_CHOICES
+from .global_vars import YEAR_IN_SCHOOL_CHOICES, MAJOR_CHOICES, MEMBERS_RANGE
 
 
 
@@ -14,87 +16,110 @@ admin.site.index_title = "Home"
 
 
 class Person(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(User)
-    phone = models.CharField(
-        max_length=12,
-        blank=True,
-        help_text="ten digit phone number, xxx-xxx-xxxx",
-    )
 
     def __unicode__(self):
         return self.user.username
 
 
 
-class Judge(Person):
-    votes = models.ManyToManyField('Team', through="Vote")
-
-
-
 class Entrant(Person):
-    school_status = models.CharField(
-        max_length=30,
-        choices=SCHOOL_STATUS_CHOICES,
+    year_in_school = models.CharField(
+        max_length=2,
+        choices=YEAR_IN_SCHOOL_CHOICES,
         blank=True,
-        help_text="What is your school standing?",
     )
     major = models.CharField(
-        max_length=40,
+        max_length=64,
         choices=MAJOR_CHOICES,
         blank=True,
-        help_text="What is your undergraduate major?",
-    )
-    team = models.ForeignKey(
-        'Team',
-        blank=True,
-        null=True,
     )
 
-    def is_upperclass(self):
-        if self.school_status not in ['1','2']:
-            return True
-        else:
-            return False
+
+
+class Judge(Person):
+    reviews = models.ManyToManyField(
+        'Team',
+        through="Review",
+        blank=True,
+    )
 
 
 
 class Team(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
     project_name = models.CharField(
-        max_length=40,
-        blank=True,
+        max_length=64,
     )
     project_description = models.TextField(
         blank=True,
-        help_text="Explain your team's project. What need does this fill? How do you use it? What open-source technologies have you leveraged? What did you learn while working on this project?",
+        help_text="Explain your team's project. What need does this fill? How do you use it? What open-source technologies have you leveraged? What did you learn while working on this project? This description is a component of your team's score.",
     )
     project_repository = models.URLField(
         blank=True,
         help_text="URL of your project code repository. We recommend using <a href='https://github.com/' target='blank'>GitHub</a> for repository hosting.",
     )
-    leader = models.ForeignKey(
-        Entrant,
-        related_name="leader_of",
-        help_text="The team leader will be the primary contact for the project.",
+
+    members = models.ManyToManyField(
+        'Entrant',
+        through='Membership',
     )
+
+    def eids(self):
+        eids = []
+        for m in self.members:
+            eids.append(m.user.username)
+
+        return eids
+
+    def clean(self):
+        # if self.status == 'draft' and self.pub_date is not None:
+        #     raise ValidationError('Draft entries may not have a publication date.')
+        pass
 
     def __unicode__(self):
         return self.project_name
 
 
 
-class Vote(models.Model):
+class Membership(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+
+    team = models.ForeignKey(
+        "Team",
+    )
+    entrant = models.ForeignKey(
+        'Entrant',
+        related_name="membership",
+    )
+
+    leader = models.BooleanField(
+        default=False,
+        help_text="The team leader will be the primary point of contact via <a href='http://webmail.ksu.edu'>K-State Webmail</a>."
+    )
+
+
+
+class Review(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
     judge = models.ForeignKey('Judge')
     team = models.ForeignKey('Team')
 
     # Scores
     presentation_score = models.PositiveSmallIntegerField(
-        help_text="Project presentation and description score."
+        help_text="Project presentation and description score.",
     )
     creativity_score = models.PositiveSmallIntegerField(
-        help_text="Project creativity and ambitiousness score."
+        help_text="Project creativity and ambitiousness score.",
     )
     code_review_score = models.PositiveSmallIntegerField(
-        help_text="Project code review score."
+        help_text="Project code review score.",
+    )
+
+    notes = models.TextField(
+        blank=True,
+        help_text="Any notes or feedback you would like to give to the team.",
     )
 
     def average_score(self):
@@ -107,4 +132,19 @@ class Vote(models.Model):
 
     def __unicode__(self):
         return "User: %s; Team: %s; Avg Score: %d" % \
-            (self.user, self.team, self.average_score)
+            (self.judge, self.team, self.average_score())
+
+
+
+def members_changed(sender, **kwargs):
+    if kwargs['instance'].members.count() not in MEMBERS_RANGE:
+        raise ValidationError("Teams must have between 2 and 5 members.")
+
+    team_lead_selected = False
+    for m in kwargs['instance'].members:
+        if m.leader == True:
+            team_lead_selected = True
+    if team_lead_selected == False:
+        raise ValidationError("You must specify a team lead.")
+
+m2m_changed.connect(members_changed, sender=Team.members.through)

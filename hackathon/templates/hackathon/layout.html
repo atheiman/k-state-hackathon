@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load staticfiles %}
+        {% block head %}
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="description" content="">
+            <meta name="author" content="">
+            <link rel="icon" href="{% static 'hackathon/favicon.ico' %}">
+
+            <title>{% block title %}MIS Club Site{% endblock title %}</title>
+
+            <!-- Bootstrap core CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+            <!-- k-state-hackathon stylesheet -->
+            <link href="{% static 'hackathon/style.css' %}" rel="stylesheet">
+
+            <!-- Extra styling per template -->
+            {% block style %}
+            {% endblock style %}
+
+        {% endblock head %}
+    </head>
+
+    <body>
+
+        <div class="container">
+            {% include "hackathon/header.html" %}
+        </div>
+
+        <div class="container">
+
+            {% block content %}
+                <div class="alert alert-warning">
+                    <p>No content provided to the base layout.</p>
+                </div>
+            {% endblock content %}
+
+        </div>
+
+        <div class="container">
+            {% include "hackathon/footer.html" %}
+        </div>
+
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+        <!-- Set active nav element based on url path -->
+        <!--<script src="{% static 'hackathon/nav.js' %}"></script>-->
+
+        <!-- hackathon JavaScript -->
+        <script src="{% static 'hackathon/script.js' %}"></script>
+
+        <!-- marked.js for rendering MarkDown content -->
+        <script src="{% static 'hackathon/marked.js' %}"></script>
+
+        <!-- Extra JavaScript per template -->
+        {% block script %}
+        {% endblock script %}
+
+    </body>
+</html>
